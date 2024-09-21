@@ -3,6 +3,7 @@
 //taking array of data from other file by loading it in html file
 
 import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
 
 let productsHTML = '';
 
