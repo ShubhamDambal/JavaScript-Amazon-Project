@@ -2,6 +2,8 @@
 //use object to represent each product
 //taking array of data from other file by loading it in html file
 
+import {cart} from '../data/cart.js';
+
 let productsHTML = '';
 
 //loop through product array
@@ -30,7 +32,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -46,7 +48,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -63,7 +65,8 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 //by clicking on button actually added to cart
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
   button.addEventListener('click', () => {
-    const productId = button.dataset.productId;
+    //const productId = button.dataset.productId;
+    const {productId} = button.dataset;
 
     let matchingItem;  //To keep track of same products by different brands
 
@@ -74,14 +77,21 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
       }
     });
 
-    //Adding product the cart
+    const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+
+    //converting into Number() bcz DOM gives string by default
+    const quantity = Number(quantitySelector.value);
+
+    //Adding product to the cart
     if(matchingItem){
-      matchingItem.quantity += 1;
+      matchingItem.quantity += quantity;
     }
     else{
       cart.push({
-        productId: productId,
-        quantity: 1
+        // productId: productId,
+        // quantity: quantity
+        productId,
+        quantity
       });
     }
 
@@ -94,5 +104,42 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
 
     //update cart quantity at right top of header
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+    //display added messg when click on add-to-cart button
+    const addedMessg = document.querySelector(`.js-added-to-cart-${productId}`);
+
+    //add class to messg element which has opacity 1
+    addedMessg.classList.add("added-to-cart2");
+
+    // We're going to use an object to save the timeout ids.
+    // The reason we use an object is because each product
+    // will have its own timeoutId. So an object lets us
+    // save multiple timeout ids for different products.
+    // For example:
+    // {
+    //   'product-id1': 2,
+    //   'product-id2': 5,
+    //   ...
+    // }
+    // (2 and 5 are ids that are returned when we call setTimeout).
+    const addedMessageTimeouts = {};
+
+    //to remove added messg after 2 sec
+    setTimeout(() => {
+      // Check if there's a previous timeout for this product. If there is, we should stop it.
+
+      const previousTimeoutId = addedMessageTimeouts[productId];
+      if (previousTimeoutId) {
+        clearTimeout(previousTimeoutId);
+      }
+      const timeoutId = setTimeout(() => {
+        addedMessg.classList.remove("added-to-cart2");
+        }, 2000);
+
+        // Save the timeoutId for this product
+        // so we can stop it later if we need to.
+        addedMessageTimeouts[productId] = timeoutId;
+    });
+      
   });
 });
