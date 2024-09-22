@@ -16,9 +16,9 @@ cart.forEach((cartItem) => {
     }
   });
 
-//used (cartItem.quantity) bcz quantity is not in products.js. it is in cart.js
+//used (cartItem.quantity) bcz quantity is not in products.js. it is in cart.js 
   cartSummary += `
-    <div class="cart-item-container">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}"> 
       <div class="delivery-date">
         Delivery date: Tuesday, June 21
       </div>
@@ -103,6 +103,10 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
   link.addEventListener('click', () => {
     const productId = link.dataset.productId;
     removeFromCart(productId);
-    console.log(cart);
+    
+    //get the product to delete
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+
+    container.remove(); //remove it from web page
   })
 });
