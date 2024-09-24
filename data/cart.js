@@ -16,7 +16,7 @@ function saveToStorage(){
 }
 
 export function addToCart(productId){
-  let matchingItem;  //To keep track of same products by different brands
+  let matchingItem;  //To keep track of same products
 
     //traverse cart to check item already preset or not
     cart.forEach((cartItem) => {
