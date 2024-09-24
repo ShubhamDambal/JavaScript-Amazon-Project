@@ -71,42 +71,10 @@ function updateCartQuantity(productId){
   //update cart quantity at right top of header
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
-  //display added messg when click on add-to-cart button
-  const addedMessg = document.querySelector(`.js-added-to-cart-${productId}`);
-
-  //add class to messg element which has opacity 1
-  addedMessg.classList.add("added-to-cart2");
-
-  // We're going to use an object to save the timeout ids.
-  // The reason we use an object is because each product
-  // will have its own timeoutId. So an object lets us
-  // save multiple timeout ids for different products.
-  // For example:
-  // {
-  //   'product-id1': 2,
-  //   'product-id2': 5,
-  //   ...
-  // }
-  // (2 and 5 are ids that are returned when we call setTimeout).
-  const addedMessageTimeouts = {};
-
-  //to remove added messg after 2 sec
-  setTimeout(() => {
-    // Check if there's a previous timeout for this product. If there is, we should stop it.
-
-    const previousTimeoutId = addedMessageTimeouts[productId];
-    if (previousTimeoutId) {
-      clearTimeout(previousTimeoutId);
-    }
-    const timeoutId = setTimeout(() => {
-      addedMessg.classList.remove("added-to-cart2");
-      }, 2000);
-
-      // Save the timeoutId for this product
-      // so we can stop it later if we need to.
-      addedMessageTimeouts[productId] = timeoutId;
-  });
+  if (cartQuantity !== 0) { document.querySelector('.js-cart-quantity') .innerHTML = cartQuantity; }
 }
+
+updateCartQuantity();
 
 //by clicking on button actually added to cart
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
@@ -116,6 +84,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
 
     addToCart(productId);
     updateCartQuantity(productId);
-      
+    
+    alert('Added!');
   });
 });
