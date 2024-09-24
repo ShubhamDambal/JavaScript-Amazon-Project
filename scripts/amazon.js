@@ -2,7 +2,7 @@
 //use object to represent each product
 //taking array of data from other file by loading it in html file
 
-import {cart, addToCart} from '../data/cart.js';
+import {cart, addToCart, calculateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import { formatCurrency} from './utils/money.js';
 
@@ -66,11 +66,7 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 function updateCartQuantity(productId){
   //calculate total quantity
-  let cartQuantity = 0;
-
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
+  const cartQuantity = calculateCartQuantity();
 
   //update cart quantity at right top of header
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
