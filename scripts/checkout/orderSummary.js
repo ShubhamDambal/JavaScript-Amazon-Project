@@ -41,7 +41,7 @@ export function renderOrderSummary(){
 
           <div class="cart-item-details">
             <div class="product-name">
-              ${matchingProduct.name}
+              ${matchingProduct.name} 
             </div>
             <div class="product-price">
               $${formatCurrency(matchingProduct.priceCents)}
@@ -122,14 +122,16 @@ export function renderOrderSummary(){
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
       removeFromCart(productId);
-      
-      //get the product to delete
-      const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
-      container.remove(); //remove it from web page
+      //1.(By manually updation)
+      // //get the product to delete
+      // const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
-      updateCartQuantity();  //update inside checkout(__) after delete
+      // container.remove(); //remove it from web page
 
+      // updateCartQuantity();  //update inside checkout(__) after delete
+
+      renderOrderSummary();   //2.(using MVC)
       renderPaymentSummary();
     })
   });
