@@ -1,3 +1,16 @@
+export function getProduct(productId){
+  let matchingProduct; //to save product of (id = productId)
+
+  //loop through products arr to search product having (id = productId)
+  products.forEach((product) => {
+    if(product.id === productId){
+      matchingProduct = product;  //once the product found we have all details of product i.e image, name, rating etc
+    }
+  });
+
+  return matchingProduct;
+}
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
