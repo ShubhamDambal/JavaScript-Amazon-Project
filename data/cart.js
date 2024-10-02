@@ -87,7 +87,6 @@ export function updateQuantity(productId, newQuantity){
   });
 
   matchingItem.quantity = newQuantity;
-  console.log(matchingItem.quantity);
 
   saveToStorage();
 }
@@ -107,3 +106,4 @@ export function updateDeliveryOption(productId, deliveryOptionId){
 
   saveToStorage();
 }
+
