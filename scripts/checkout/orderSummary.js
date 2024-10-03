@@ -9,7 +9,7 @@ import {renderCheckoutHeader} from './checkoutHeader.js';
 
 export function renderOrderSummary(){
 
-  let cartSummary = '';
+  let cartSummary = ''; 
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;

@@ -161,7 +161,7 @@ export const products = [
       "shoes",
       "running shoes",
       "footwear"
-    ]
+    ] 
   },
   {
     id: "5968897c-4d27-4872-89f6-5bcb052746d7",

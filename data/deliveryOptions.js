@@ -44,7 +44,7 @@ export function calculateDeliveryDate(deliveryOption){
   while (remainingDays > 0) {
     deliveryDate = deliveryDate.add(1, 'day');
 
-    //if no sunday then only decrese remainingDays
+    //if no sunday & saturday, then only decrese remainingDays
     if (!isWeekend(deliveryDate)) {
       remainingDays--;
     }
