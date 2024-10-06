@@ -33,23 +33,23 @@ export function addToCart(productId){
       }
     });
 
-    const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+    const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`); 
 
     //converting into Number() bcz DOM gives string by default
-    // const quantity = Number(quantitySelector.value);
+    const quantity = Number(quantitySelector.value);
 
     //Adding product to the cart
     if(matchingItem){
-      matchingItem.quantity += 1;
-      //matchingItem.quantity += quantity;
+      //matchingItem.quantity += 1;
+      matchingItem.quantity += quantity;
     }
     else{
       cart.push({
         // productId: productId,
         // quantity: quantity
         productId,
-        //quantity,
-        quantity:1,
+        quantity,
+        //quantity:1,
         deliveryOptionId: '1'
       });
     }
