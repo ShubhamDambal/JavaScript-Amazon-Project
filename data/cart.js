@@ -1,3 +1,5 @@
+import {validDeliveryOption} from './deliveryOptions.js';
+
 export let cart;
 
 loadFromStorage();
@@ -31,7 +33,7 @@ export function addToCart(productId){
       if(productId === cartItem.productId){
         matchingItem = cartItem;
       }
-    });
+    }); 
 
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`); 
 
@@ -107,6 +109,16 @@ export function updateDeliveryOption(productId, deliveryOptionId){
       matchingProduct = cartItem;
     }
   });
+
+  //if productId is not present in cart then do nothing
+  if(!matchingProduct){
+    return;
+  }
+
+  //if deliveryOptionId is not present in cart then do nothing
+  if (!validDeliveryOption(deliveryOptionId)) {
+    return;
+  }
 
   //step 2: Update deliveryOptionId
   matchingProduct.deliveryOptionId = deliveryOptionId;

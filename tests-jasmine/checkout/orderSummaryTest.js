@@ -24,7 +24,7 @@ describe('test suite: renderOrderSummary', () => {
         quantity: 2,
         deliveryOptionId: '1'
       }, 
-      {
+      { 
         productId: productId2,
         quantity: 1,
         deliveryOptionId: '2'
@@ -57,6 +57,22 @@ describe('test suite: renderOrderSummary', () => {
     expect(
       document.querySelector(`.js-product-quantity-${productId2}`).innerText
     ).toContain('Quantity: 1');
+
+    //check product name
+    expect(
+      document.querySelector(`.js-product-name-${productId1}`).innerText
+    ).toEqual('Black and Gray Athletic Cotton Socks - 6 Pairs');
+    expect(
+      document.querySelector(`.js-product-name-${productId2}`).innerText
+    ).toEqual('Intermediate Size Basketball');
+
+    //check product price
+    expect(
+      document.querySelector(`.js-product-price-${productId1}`).innerText
+    ).toEqual('$10.90');
+    expect(
+      document.querySelector(`.js-product-price-${productId2}`).innerText
+    ).toEqual('$20.95');
   });
 
   /**********test 2(Page behaves)**********/
@@ -81,5 +97,37 @@ describe('test suite: renderOrderSummary', () => {
     //to check updated arr(cart) after delete
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(productId2);
+
+    //check product name
+    expect(
+      document.querySelector(`.js-product-name-${productId2}`).innerText
+    ).toEqual('Intermediate Size Basketball');
+
+    //check product price
+    expect(
+      document.querySelector(`.js-product-price-${productId2}`).innerText
+    ).toEqual('$20.95');
+  });
+
+  /**********test 3(delivery option)**********/
+  it('updates the delivery option', () => {
+    //get 3rd delivery option for 1st product and click it
+    document.querySelector(`.js-delivery-option-${productId1}-3`).click();
+
+    expect(
+      document.querySelector(`.js-delivery-option-input-${productId1}-3`).checked
+    ).toEqual(true);
+
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(productId1);
+    expect(cart[0].deliveryOptionId).toEqual('3');
+
+    //check payment after 3rd delivery option checked
+    expect(
+      document.querySelector('.js-payment-summary-shipping').innerText
+    ).toEqual('$14.98');
+    expect(
+      document.querySelector('.js-payment-summary-total').innerText
+    ).toEqual('$63.50');
   });
 });
