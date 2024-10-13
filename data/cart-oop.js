@@ -8,7 +8,7 @@ function Cart(localStorageKey){
   
     //function inside object = method
     loadFromStorage(){
-      this.cartItems = JSON.parse(localStorage.getItem('localStorageKey'));
+      this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));
       
       //use "this.cartItems" instead of "cart.cartItems" to avoid error when changing object name
       if(!this.cartItems){
@@ -26,7 +26,7 @@ function Cart(localStorageKey){
     },
     
     saveToStorage(){
-      localStorage.setItem('localStorageKey', JSON.stringify(this.cartItems));
+      localStorage.setItem(localStorageKey, JSON.stringify(this.cartItems));
     },
   
   
