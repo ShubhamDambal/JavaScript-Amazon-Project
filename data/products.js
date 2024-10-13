@@ -59,6 +59,53 @@ class Clothing extends Product{
   }
 }
 
+
+/* "this" as a variable
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+*/
+
+/* "this" inside a object
+console.log(this);  //undefined
+
+const obj = {
+  a: 2,
+  b: this.a
+};
+*/
+
+/* "this" inside function
+function logThis(){
+  let a;
+  console.log(a + "hii");
+  console.log(this);
+}
+logThis();   //a=undefined, this=undefined
+logThis.call('shubham');  //a=undefined, this=shubham
+*/
+
+/* "this" inside function
+function logThis(a){
+  console.log(a + " hii");
+  console.log(this);
+}
+logThis();   //a=undefined, this=undefined
+logThis.call('shubham', 100);  //a=100 hii, this=shubham
+*/
+
+/* "this" in Arrow Function
+this;
+const obj = {
+  method: () => {
+    console.log(this);
+  }
+}
+obj.method();
+obj.method().call('sdde');  //can not change this inside arrow func
+*/
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
