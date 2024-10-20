@@ -10,15 +10,24 @@ import { loadCart } from '../data/cart.js';
 //Async Await (ShortCut for promises)
 //returns promise
 async function loadPage() {
+  try{
+    //throw 'xyz';
 
-  await loadProductsFetch();  //wait for promise to finish
+    await loadProductsFetch();  //wait for promise to finish
 
-  await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+    const value = await new Promise((resolve, reject) => {
+      //throw 'abc';
+
+      loadCart(() => {
+        //reject('uvw');
+        resolve('value3');
+      });
     });
-  });
-
+  }
+  catch(error){
+    console.log('Unexpected error. Please try again later.');
+  }
+  
   renderOrderSummary();
   renderPaymentSummary();
   renderCheckoutHeader();
