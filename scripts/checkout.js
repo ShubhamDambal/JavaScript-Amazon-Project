@@ -6,6 +6,26 @@ import { loadCart } from '../data/cart.js';
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
+//type4 of loading from backend
+//Async Await (ShortCut for promises)
+//returns promise
+async function loadPage() {
+
+  await loadProductsFetch();  //wait for promise to finish
+
+  await new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+  renderCheckoutHeader();
+}
+loadPage();
+
+/*//type3 of loading from backend
 //Promise all Load multiple things at same time
 Promise.all([
   // new Promise((resolve) => {   //using loadProducts()
@@ -26,8 +46,9 @@ Promise.all([
   renderPaymentSummary();
   renderCheckoutHeader();
 })
+*/
 
-/*
+/*//type2 of loading from backend
 //Promises
 new Promise((resolve) => {
   loadProducts(() => {
@@ -48,7 +69,7 @@ new Promise((resolve) => {
 */
 
 
-/*
+/*//type1 of loading from backend
 //Callback = inside loadProducts() function we are giving functions to run in future
 loadProducts(() => {
   loadCart(() => {
