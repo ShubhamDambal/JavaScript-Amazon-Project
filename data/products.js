@@ -132,6 +132,38 @@ obj.method().call('sdde');  //can not change this inside arrow func
 /*******load products using backend*******/
 export let products = [];
 
+//fetch() = use promisesb to make request to backend
+export function loadProductsFetch(){
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response) => {
+    return response.json();
+  }).then((productsData) => {
+    products = productsData.map((productDetails) => {
+      if(productDetails.type === 'clothing'){
+        return new Clothing(productDetails);  //convert cloths to clothing class
+      }
+      else if(productDetails.type === 'appliance'){
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);  //converting each product to class
+    });
+
+    console.log('load products');
+  });
+
+  return promise;
+}
+
+/*
+//as this function returns a promise we can attach 'then' to it 
+loadProductsFetch().then(() => {
+  console.log('next step');
+});
+*/
+
+
+//XMLHttpRequest = use callbacks
 //Callback = inside loadProducts() function we are giving function to run in future
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
@@ -156,7 +188,7 @@ export function loadProducts(fun){
   xhr.send();
 }
 loadProducts(() => {
-  console.log('Products have been successfully loade');
+  console.log('Products have been successfully loaded');
 });
 
 
